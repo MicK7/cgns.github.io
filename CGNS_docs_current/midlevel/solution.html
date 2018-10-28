@@ -64,9 +64,11 @@
      <ul>
      <li> <tt><b>cg_field_write</b></tt> - Write flow solution
      <li> <tt><b>cg_field_partial_write</b></tt> - Write subset of flow solution
+     <li> <tt><b>cg_field_general_write</b></tt> - Write flow solution with custom memory mapping
      <li> <tt><b>cg_nfields</b></tt> - Get number of flow solution arrays
      <li> <tt><b>cg_field_info</b></tt> - Get info about a flow solution array
      <li> <tt><b>cg_field_read</b></tt> - Read flow solution
+     <li> <tt><b>cg_field_general_read</b></tt> - Read flow solution with custom memory mapping
      </ul>
 <li> <a href="#discretedata">Discrete Data</a>
      <ul>
@@ -293,6 +295,14 @@ and <tt>KFaceCenter</tt>, are also acceptable.
     <td align=center valign=baseline>
         <tt><b>-&nbsp;w&nbsp;m</b></tt>
 <tr><td nowrap>
+        <tt><b><span class=out><i>ier</i></span> = cg_field_general_write(<span class=in>int fn</span>, <span class=in>int B</span>, <span class=in>int Z</span>, <span class=in>int S</span>,<br>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=in>DataType_t datatype</span>, <span class=in>char *fieldname</span>, <span class=in>cgsize_t *range_min</span>,<br>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=in>cgsize_t *range_max</span>, <span class=in>int m_num_dims</span>, <span class=in>cgsize_t *m_dims</span>,<br>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=in>cgsize_t *m_range_min</span>, <span class=in>cgsize_t *m_range_max</span>, <span class=in>void *solution_array</span>, <span class=out><i>int *F</i></span>);</b></tt>
+    <td align=center valign=baseline>
+        <tt><b>-&nbsp;w&nbsp;m</b></tt>
+
+<tr><td nowrap>
         <tt><b><span class=out><i>ier</i></span> = cg_nfields(<span class=in>int fn</span>, <span class=in>int B</span>, <span class=in>int Z</span>, <span class=in>int S</span>, <span class=out><i>int *nfields</i></span>);</b></tt>
     <td align=center valign=baseline>
         <tt><b>r&nbsp;-&nbsp;m</b></tt>
@@ -307,6 +317,13 @@ and <tt>KFaceCenter</tt>, are also acceptable.
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=out><i>void *solution_array</i></span>);</b></tt>
     <td align=center valign=baseline>
         <tt><b>r&nbsp;-&nbsp;m</b></tt>
+<tr><td nowrap>
+        <tt><b><span class=out><i>ier</i></span> = cg_field_general_read(<span class=in>int fn</span>, <span class=in>int B</span>, <span class=in>int Z</span>, <span class=in>int S</span>, <span class=in>char *fieldname</span>,<br>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=in>DataType_t datatype</span>, <span class=in>cgsize_t *range_min</span>, <span class=in>cgsize_t *range_max</span>,<br>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=in>int m_num_dims</span>, <span class=in>cgsize_t *m_dims</span>,<br>
+	       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=in>cgsize_t *m_range_min</span>, <span class=in>cgsize_t *m_range_max</span>, <span class=out><i>void *solution_array</i></span>);</b></tt>
+    <td align=center valign=baseline>
+        <tt><b>r&nbsp;-&nbsp;m</b></tt>
 <tbody>
 <tr><td nowrap>
        <tt><b>call <span class=cgf>cg_field_write_f</span>(<span class=in>fn</span>, <span class=in>B</span>, <span class=in>Z</span>, <span class=in>S</span>, <span class=in>datatype</span>, <span class=in>fieldname</span>,<br>
@@ -316,6 +333,12 @@ and <tt>KFaceCenter</tt>, are also acceptable.
 <tr><td nowrap>
        <tt><b>call <span class=cgf>cg_field_partial_write_f</span>(<span class=in>fn</span>, <span class=in>B</span>, <span class=in>Z</span>, <span class=in>S</span>, <span class=in>datatype</span>, <span class=in>fieldname</span>,<br>
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=in>range_min</span>, <span class=in>range_max</span>, <span class=in>solution_array</span>, <span class=out><i>F</i></span>, <span class=out><i>ier</i></span>)</b></tt>
+    <td align=center valign=baseline>
+        <tt><b>-&nbsp;w&nbsp;m</b></tt>
+<tr><td nowrap>
+       <tt><b>call <span class=cgf>cg_field_general_write_f</span>(<span class=in>fn</span>, <span class=in>B</span>, <span class=in>Z</span>, <span class=in>S</span>, <span class=in>datatype</span>, <span class=in>fieldname</span>,<br>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=in>range_min</span>, <span class=in>range_max</span>, <span class=in>m_num_dims</span>, <span class=in>m_dims</span>,<br>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=in>m_range_min</span>, <span class=in>m_range_max</span>, <span class=in>solution_array</span>, <span class=out><i>F</i></span>, <span class=out><i>ier</i></span>)</b></tt>
     <td align=center valign=baseline>
         <tt><b>-&nbsp;w&nbsp;m</b></tt>
 <tr><td nowrap>
@@ -329,6 +352,12 @@ and <tt>KFaceCenter</tt>, are also acceptable.
 <tr><td nowrap>
         <tt><b>call <span class=cgf>cg_field_read_f</span>(<span class=in>fn</span>, <span class=in>B</span>, <span class=in>Z</span>, <span class=in>S</span>, <span class=in>fieldname</span>, <span class=in>datatype</span>, <span class=in>range_min</span>,<br>
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=in>range_max</span>, <span class=out><i>solution_array</i></span>, <span class=out><i>ier</i></span>)</b></tt>
+    <td align=center valign=baseline>
+        <tt><b>r&nbsp;-&nbsp;m</b></tt>
+<tr><td nowrap>
+        <tt><b>call <span class=cgf>cg_field_general_read_f</span>(<span class=in>fn</span>, <span class=in>B</span>, <span class=in>Z</span>, <span class=in>S</span>, <span class=in>fieldname</span>, <span class=in>datatype</span>, <span class=in>range_min</span>,<br>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=in>range_max</span>, <span class=in>m_num_dims</span>, <span class=in>m_dims</span>,<br>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=in>m_range_min</span>, <span class=in>m_range_max</span>, <span class=out><i>solution_array</i></span>, <span class=out><i>ier</i></span>)</b></tt>
     <td align=center valign=baseline>
         <tt><b>r&nbsp;-&nbsp;m</b></tt>
 </table>
@@ -377,6 +406,18 @@ and <tt>KFaceCenter</tt>, are also acceptable.
 <tr valign=baseline><td>
    <td><tt>range_max</tt><td>
    <td>Upper range index (eg., <tt>imax, jmax, kmax</tt>).
+<tr valign=baseline><td>
+   <td><tt>m_num_dims</tt><td>
+   <td>Number of dimensions for array in memory.
+<tr valign=baseline><td>
+   <td><tt>m_dims</tt><td>
+   <td>Dimension values for array data in memory.
+<tr valign=baseline><td>
+   <td><tt>m_range_min</tt><td>
+   <td>Lower range index in memory (eg., <tt>imin, jmin, kmin</tt>).
+<tr valign=baseline><td>
+   <td><tt>m_range_max</tt><td>
+   <td>Upper range index in memory (eg., <tt>imax, jmax, kmax</tt>).
 <tr valign=baseline><td>
    <td><tt>solution_array</tt><td>
    <td>Array of solution values for the range prescribed.
